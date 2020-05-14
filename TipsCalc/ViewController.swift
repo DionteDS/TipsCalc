@@ -10,6 +10,8 @@ import UIKit
 
 class TipsViewController: UIViewController {
     
+    // MARK: - Top View properties
+    
     let topView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +46,17 @@ class TipsViewController: UIViewController {
         underline.backgroundColor = UIColor.black
         return underline
     }()
+    
+    // ----------------------------------------------------------------------------------------------------------
+    
+    // MARK: - Middle view properties
+    
+    let middleView: UIView = {
+        let middleView = UIView()
+        middleView.translatesAutoresizingMaskIntoConstraints = false
+        middleView.backgroundColor = UIColor(red: 72/255, green: 126/255, blue: 176/255, alpha: 1.0)
+        return middleView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +65,8 @@ class TipsViewController: UIViewController {
     }
     
     private func setupLayouts() {
+        
+        // topView constraints
         
         view.addSubview(topView)
         topView.addSubview(tipCalaculatorTitle)
@@ -83,6 +98,15 @@ class TipsViewController: UIViewController {
         underline.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -80).isActive = true
 //        underline.centerXAnchor.constraint(equalTo: digitsLabel.centerXAnchor, constant: 0).isActive = true
         underline.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        
+        // middleView constraints
+        
+        view.addSubview(middleView)
+        
+        middleView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 0).isActive = true
+        middleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        middleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        middleView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 3).isActive = true
     }
 
 
