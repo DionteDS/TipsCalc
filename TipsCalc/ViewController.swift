@@ -57,6 +57,24 @@ class TipsViewController: UIViewController {
         middleView.backgroundColor = UIColor(red: 72/255, green: 126/255, blue: 176/255, alpha: 1.0)
         return middleView
     }()
+    
+    let tipPercentageLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.attributedText = NSAttributedString(string: "TIP PERCENTAGE", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.white])
+        return label
+    }()
+    
+    let tenPercentButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setAttributedTitle(NSAttributedString(string: "10%", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
+        button.addTarget(self, action: #selector(tenPercentTapped), for: .touchUpInside)
+        button.designButtonBorder()
+        return button
+    }()
+    
+    var didSelect = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,11 +120,31 @@ class TipsViewController: UIViewController {
         // middleView constraints
         
         view.addSubview(middleView)
+        middleView.addSubview(tipPercentageLabel)
+        middleView.addSubview(tenPercentButton)
         
+        // middleView constraints
         middleView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 0).isActive = true
         middleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         middleView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         middleView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 3).isActive = true
+        
+        // tipPercentageLabel constraints
+        tipPercentageLabel.topAnchor.constraint(equalTo: middleView.topAnchor, constant: 10).isActive = true
+        tipPercentageLabel.centerXAnchor.constraint(equalTo: middleView.centerXAnchor, constant: 0).isActive = true
+        
+        tenPercentButton.topAnchor.constraint(equalTo: tipPercentageLabel.bottomAnchor, constant: 10).isActive = true
+        tenPercentButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 60).isActive = true
+        tenPercentButton.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -60).isActive = true
+        tenPercentButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    }
+    
+    @objc func tenPercentTapped() {
+        
+        print("Tapped")
+        
+        tenPercentButton.backgroundColor = .red
+        
     }
 
 
