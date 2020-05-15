@@ -19,6 +19,17 @@ class TipsViewController: UIViewController {
         return view
     }()
     
+    let tipTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.borderStyle = .roundedRect
+        textField.keyboardType = .decimalPad
+        textField.backgroundColor = .clear
+        textField.tintColor = UIColor(red: 179/255, green: 55/255, blue: 113/255, alpha: 1.0)
+        textField.placeholder = "$0.00"
+        return textField
+    }()
+    
     let tipCalaculatorTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +40,7 @@ class TipsViewController: UIViewController {
     let totalLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.attributedText = NSAttributedString(string: "Total", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17), NSAttributedString.Key.foregroundColor: UIColor(red: 179/255, green: 55/255, blue: 113/255, alpha: 1.0)])
+        label.attributedText = NSAttributedString(string: "Enter total below", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17), NSAttributedString.Key.foregroundColor: UIColor(red: 179/255, green: 55/255, blue: 113/255, alpha: 1.0)])
         return label
     }()
     
@@ -74,10 +85,12 @@ class TipsViewController: UIViewController {
         return button
     }()
     
-    var didSelect = false
+    var amount: Double = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tipTextField.delegate = self
         
         setupLayouts()
     }
@@ -89,7 +102,8 @@ class TipsViewController: UIViewController {
         view.addSubview(topView)
         topView.addSubview(tipCalaculatorTitle)
         topView.addSubview(totalLabel)
-        topView.addSubview(digitsLabel)
+//        topView.addSubview(digitsLabel)
+        topView.addSubview(tipTextField)
         topView.addSubview(underline)
         
         // TopView constraints
@@ -102,20 +116,31 @@ class TipsViewController: UIViewController {
         tipCalaculatorTitle.topAnchor.constraint(equalTo: topView.topAnchor, constant: 50).isActive = true
         tipCalaculatorTitle.centerXAnchor.constraint(equalTo: topView.centerXAnchor, constant: 0).isActive = true
         
+        
         // totalLabel constraints
         totalLabel.topAnchor.constraint(equalTo: tipCalaculatorTitle.bottomAnchor, constant: 10).isActive = true
         totalLabel.centerXAnchor.constraint(equalTo: tipCalaculatorTitle.centerXAnchor, constant: 0).isActive = true
         
         // digitsLabel constraints
-        digitsLabel.topAnchor.constraint(equalTo: totalLabel.bottomAnchor, constant: 10).isActive = true
-        digitsLabel.centerXAnchor.constraint(equalTo: totalLabel.centerXAnchor, constant: 0).isActive = true
+//        digitsLabel.topAnchor.constraint(equalTo: totalLabel.bottomAnchor, constant: 10).isActive = true
+//        digitsLabel.centerXAnchor.constraint(equalTo: totalLabel.centerXAnchor, constant: 0).isActive = true
+        
+        // tipTextField constraints
+        tipTextField.topAnchor.constraint(equalTo: totalLabel.bottomAnchor, constant: 10).isActive = true
+        tipTextField.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 80).isActive = true
+        tipTextField.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -80).isActive = true
+        tipTextField.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         // underline constraints
-        underline.topAnchor.constraint(equalTo: digitsLabel.bottomAnchor, constant: 3).isActive = true
+//        underline.topAnchor.constraint(equalTo: digitsLabel.bottomAnchor, constant: 3).isActive = true
+//        underline.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 80).isActive = true
+//        underline.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -80).isActive = true
+////        underline.centerXAnchor.constraint(equalTo: digitsLabel.centerXAnchor, constant: 0).isActive = true
+//        underline.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        underline.topAnchor.constraint(equalTo: tipTextField.bottomAnchor, constant: 5).isActive = true
         underline.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 80).isActive = true
         underline.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -80).isActive = true
-//        underline.centerXAnchor.constraint(equalTo: digitsLabel.centerXAnchor, constant: 0).isActive = true
-        underline.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        underline.heightAnchor.constraint(equalToConstant: 5).isActive = true
         
         // middleView constraints
         
@@ -150,3 +175,17 @@ class TipsViewController: UIViewController {
 
 }
 
+// MARK: - TextField Delegate Methods
+
+extension TipsViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print(textField.text!)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+}
