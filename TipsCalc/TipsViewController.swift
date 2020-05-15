@@ -174,6 +174,12 @@ class TipsViewController: UIViewController {
         
         print("Tapped")
         
+        let tenPercentAdded = amount * 0.10
+        
+        let grandTotal = amount + tenPercentAdded
+        
+        print("Grand total: \(String(format: "$%.02f", grandTotal))")
+        
         tenPercentButton.backgroundColor = .red
         
     }
