@@ -78,12 +78,45 @@ class TipsViewController: UIViewController {
     
     let tenPercentButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setAttributedTitle(NSAttributedString(string: "10%", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
         button.addTarget(self, action: #selector(tenPercentTapped), for: .touchUpInside)
         button.designButtonBorder()
         return button
     }()
+    
+    let fifthteenPercentButton: UIButton = {
+        let button = UIButton()
+        button.setAttributedTitle(NSAttributedString(string: "15%", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
+        button.designButtonBorder()
+        return button
+    }()
+    
+    let twentyPercentButton: UIButton = {
+        let button = UIButton()
+        button.setAttributedTitle(NSAttributedString(string: "20%", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
+        button.designButtonBorder()
+        return button
+    }()
+    
+    let stacks: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        return stackView
+    }()
+    
+    // ----------------------------------------------------------------------------------------------------------
+    
+    let bottomView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(red: 206/255, green: 214/255, blue: 224/255, alpha: 1.0)
+        return view
+    }()
+    
     
     var amount: Double = 0
 
@@ -148,7 +181,11 @@ class TipsViewController: UIViewController {
         
         view.addSubview(middleView)
         middleView.addSubview(tipPercentageLabel)
-        middleView.addSubview(tenPercentButton)
+//        middleView.addSubview(tenPercentButton)
+        middleView.addSubview(stacks)
+        stacks.addArrangedSubview(tenPercentButton)
+        stacks.addArrangedSubview(fifthteenPercentButton)
+        stacks.addArrangedSubview(twentyPercentButton)
         
         // middleView constraints
         middleView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 0).isActive = true
@@ -160,10 +197,28 @@ class TipsViewController: UIViewController {
         tipPercentageLabel.topAnchor.constraint(equalTo: middleView.topAnchor, constant: 10).isActive = true
         tipPercentageLabel.centerXAnchor.constraint(equalTo: middleView.centerXAnchor, constant: 0).isActive = true
         
-        tenPercentButton.topAnchor.constraint(equalTo: tipPercentageLabel.bottomAnchor, constant: 10).isActive = true
-        tenPercentButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 60).isActive = true
-        tenPercentButton.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -60).isActive = true
+        // stacks constraints
+        
+        stacks.topAnchor.constraint(equalTo: tipPercentageLabel.bottomAnchor, constant: 10).isActive = true
+        stacks.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 60).isActive = true
+        stacks.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -60).isActive = true
+        
         tenPercentButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        // 10% constraints
+//        tenPercentButton.topAnchor.constraint(equalTo: tipPercentageLabel.bottomAnchor, constant: 10).isActive = true
+//        tenPercentButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 60).isActive = true
+//        tenPercentButton.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -60).isActive = true
+//        tenPercentButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        // bottomView constraints
+        
+        view.addSubview(bottomView)
+        
+        bottomView.topAnchor.constraint(equalTo: middleView.bottomAnchor, constant: 0).isActive = true
+        bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        bottomView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 3).isActive = true
     }
     
     // MARK: Percentage buttons
