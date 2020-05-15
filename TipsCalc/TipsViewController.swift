@@ -92,6 +92,8 @@ class TipsViewController: UIViewController {
         
         tipTextField.delegate = self
         
+        self.doneButtonOnKeyboard()
+        
         setupLayouts()
     }
     
@@ -164,11 +166,58 @@ class TipsViewController: UIViewController {
         tenPercentButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
+    // MARK: Percentage buttons
+    
+    
+    // 10% button
     @objc func tenPercentTapped() {
         
         print("Tapped")
         
         tenPercentButton.backgroundColor = .red
+        
+    }
+    
+    // 15% button
+    
+    // 20% button
+    
+    
+    
+    // MARK: - Done button functions
+    
+    // Create the done button on the textField keyboard
+    private func doneButtonOnKeyboard() {
+        
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 50))
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        tipTextField.inputAccessoryView = doneToolbar
+        
+    }
+    
+    // store the amount when the done button is tapped
+    @objc func doneButtonAction() {
+        print(tipTextField.text!)
+        
+        guard let checkAmountIfNil = tipTextField.text else { fatalError("TextField is nil") }
+        
+        let convertAmount = Double(checkAmountIfNil)
+        
+        if let convert = convertAmount {
+            amount = convert
+            let formattedString = String(format: "$%.02f", amount)
+            print(formattedString)
+            tipTextField.resignFirstResponder()
+        }
+        
+        tipTextField.resignFirstResponder()
         
     }
 
@@ -179,13 +228,6 @@ class TipsViewController: UIViewController {
 
 extension TipsViewController: UITextFieldDelegate {
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print(textField.text!)
-    }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
     
 }
