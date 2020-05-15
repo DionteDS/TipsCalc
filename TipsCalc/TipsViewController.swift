@@ -121,6 +121,7 @@ class TipsViewController: UIViewController {
     
     
     var amount: Double = 0
+    var didTap: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -229,42 +230,90 @@ class TipsViewController: UIViewController {
     // 10% button
     @objc func tenPercentTapped() {
         
-        print("Tapped")
-        
-        let tenPercentAdded = amount * 0.10
-        
-        let grandTotal = amount + tenPercentAdded
-        
-        print("Grand total: \(String(format: "$%.02f", grandTotal))")
-        
-        tenPercentButton.backgroundColor = .red
+        // if true disable the 15% and 20% buttons and then calculate the total + tip
+        // else reset the buttons
+        if didTap {
+            
+            print("Tapped")
+            
+            let tenPercentAdded = amount * 0.10
+            
+            let grandTotal = amount + tenPercentAdded
+            
+            print("Grand total: \(String(format: "$%.02f", grandTotal))")
+            
+            fifthteenPercentButton.isEnabled = false
+            twentyPercentButton.isEnabled = false
+            tenPercentButton.backgroundColor = .red
+            
+            didTap = false
+        } else {
+            fifthteenPercentButton.isEnabled = true
+            twentyPercentButton.isEnabled = true
+            tenPercentButton.backgroundColor = .clear
+            
+            didTap = true
+        }
         
     }
     
     // 15% button
     @objc func fifthteenPercentTapped() {
         
-        print("tapped")
+        // if true disable the 10% and 20% buttons and then calculate the total + tip
+        // else reset the buttons
+        if didTap {
+            
+            print("tapped")
+            
+            let fifthteenPercentAdded = amount * 0.15
+            
+            let grandTotal = amount + fifthteenPercentAdded
+            
+            print("Grand total: \(String(format: "$%.02f", grandTotal))")
+            
+            fifthteenPercentButton.backgroundColor = .red
+            
+            tenPercentButton.isEnabled = false
+            twentyPercentButton.isEnabled = false
+            
+            didTap = false
+        } else {
+            tenPercentButton.isEnabled = true
+            twentyPercentButton.isEnabled = true
+            fifthteenPercentButton.backgroundColor = .clear
+            
+            didTap = true
+        }
         
-        let fifthteenPercentAdded = amount * 0.15
-        
-        let grandTotal = amount + fifthteenPercentAdded
-        
-        print("Grand total: \(String(format: "$%.02f", grandTotal))")
-        
-        fifthteenPercentButton.backgroundColor = .red
     }
     
     // 20% button
     @objc func twentyPercentTapped() {
         
-        let twentyPercentAdded = amount * 0.20
-        
-        let grandTotal = amount + twentyPercentAdded
-        
-        print("Grand Total: \(String(format: "$%.02f", grandTotal))")
-        
-        twentyPercentButton.backgroundColor = .red
+        // if true disable the 10% and 15% buttons and then calculate the total + tip
+        // else reset the buttons
+        if didTap {
+            
+            let twentyPercentAdded = amount * 0.20
+            
+            let grandTotal = amount + twentyPercentAdded
+            
+            print("Grand Total: \(String(format: "$%.02f", grandTotal))")
+            
+            twentyPercentButton.backgroundColor = .red
+            
+            tenPercentButton.isEnabled = false
+            fifthteenPercentButton.isEnabled = false
+            
+            didTap = false
+        } else {
+            tenPercentButton.isEnabled = true
+            fifthteenPercentButton.isEnabled = true
+            twentyPercentButton.backgroundColor = .clear
+            
+            didTap = true
+        }
         
     }
     
