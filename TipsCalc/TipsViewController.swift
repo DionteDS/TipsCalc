@@ -88,6 +88,7 @@ class TipsViewController: UIViewController {
         let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "15%", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
         button.designButtonBorder()
+        button.addTarget(self, action: #selector(fifthteenPercentTapped), for: .touchUpInside)
         return button
     }()
     
@@ -95,6 +96,7 @@ class TipsViewController: UIViewController {
         let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "20%", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
         button.designButtonBorder()
+        button.addTarget(self, action: #selector(twentyPercentTapped), for: .touchUpInside)
         return button
     }()
     
@@ -221,7 +223,7 @@ class TipsViewController: UIViewController {
         bottomView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 3).isActive = true
     }
     
-    // MARK: Percentage buttons
+    // MARK: Percentage buttons functions
     
     
     // 10% button
@@ -240,8 +242,31 @@ class TipsViewController: UIViewController {
     }
     
     // 15% button
+    @objc func fifthteenPercentTapped() {
+        
+        print("tapped")
+        
+        let fifthteenPercentAdded = amount * 0.15
+        
+        let grandTotal = amount + fifthteenPercentAdded
+        
+        print("Grand total: \(String(format: "$%.02f", grandTotal))")
+        
+        fifthteenPercentButton.backgroundColor = .red
+    }
     
     // 20% button
+    @objc func twentyPercentTapped() {
+        
+        let twentyPercentAdded = amount * 0.20
+        
+        let grandTotal = amount + twentyPercentAdded
+        
+        print("Grand Total: \(String(format: "$%.02f", grandTotal))")
+        
+        twentyPercentButton.backgroundColor = .red
+        
+    }
     
     
     
