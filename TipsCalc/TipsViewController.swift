@@ -112,6 +112,8 @@ class TipsViewController: UIViewController {
     
     // ----------------------------------------------------------------------------------------------------------
     
+    // MARK: - BottomView properties
+    
     let bottomView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -119,9 +121,23 @@ class TipsViewController: UIViewController {
         return view
     }()
     
+    let displayTipLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let displayGrandTotal: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     
     var amount: Double = 0
     var didTap: Bool = true
+    
+    // MARK: Setup Constraints
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -217,11 +233,22 @@ class TipsViewController: UIViewController {
         // bottomView constraints
         
         view.addSubview(bottomView)
+        bottomView.addSubview(displayTipLabel)
+        bottomView.addSubview(displayGrandTotal)
         
+        // bottomView constraints
         bottomView.topAnchor.constraint(equalTo: middleView.bottomAnchor, constant: 0).isActive = true
         bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         bottomView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 3).isActive = true
+        
+        // displayTipLabel constraints
+        displayTipLabel.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 80).isActive = true
+        displayTipLabel.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor, constant: 0).isActive = true
+        
+        // displayGrandTotal constraints
+        displayGrandTotal.topAnchor.constraint(equalTo: displayTipLabel.bottomAnchor, constant: 10).isActive = true
+        displayGrandTotal.centerXAnchor.constraint(equalTo: displayTipLabel.centerXAnchor, constant: 0).isActive = true
     }
     
     // MARK: Percentage buttons functions
@@ -240,11 +267,16 @@ class TipsViewController: UIViewController {
             
             let grandTotal = amount + tenPercentAdded
             
+            let formattedTip = String(format: "$%.02f", tenPercentAdded)
+            let formattedTotal = String(format: "$%.02f", grandTotal)
+            
             print("Grand total: \(String(format: "$%.02f", grandTotal))")
             
             fifthteenPercentButton.isEnabled = false
             twentyPercentButton.isEnabled = false
             tenPercentButton.backgroundColor = .red
+            
+            displayTotal(tip: formattedTip, total: formattedTotal)
             
             didTap = false
         } else {
@@ -270,9 +302,14 @@ class TipsViewController: UIViewController {
             
             let grandTotal = amount + fifthteenPercentAdded
             
+            let formattedTip = String(format: "$%.02f", fifthteenPercentAdded)
+            let formattedTotal = String(format: "$%.02f", grandTotal)
+            
             print("Grand total: \(String(format: "$%.02f", grandTotal))")
             
             fifthteenPercentButton.backgroundColor = .red
+            
+            displayTotal(tip: formattedTip, total: formattedTotal)
             
             tenPercentButton.isEnabled = false
             twentyPercentButton.isEnabled = false
@@ -299,12 +336,17 @@ class TipsViewController: UIViewController {
             
             let grandTotal = amount + twentyPercentAdded
             
+            let formattedTip = String(format: "$%.02f", twentyPercentAdded)
+            let formattedTotal = String(format: "$%.02f", grandTotal)
+            
             print("Grand Total: \(String(format: "$%.02f", grandTotal))")
             
             twentyPercentButton.backgroundColor = .red
             
             tenPercentButton.isEnabled = false
             fifthteenPercentButton.isEnabled = false
+            
+            displayTotal(tip: formattedTip, total: formattedTotal)
             
             didTap = false
         } else {
@@ -353,6 +395,21 @@ class TipsViewController: UIViewController {
         }
         
         tipTextField.resignFirstResponder()
+        
+    }
+    
+    // MARK: - Display the grand total
+    
+    func displayTotal(tip: String, total: String) {
+        
+        print("The tip: \(tip)")
+        print("Total + tip: \(total)")
+        
+        displayTipLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        displayTipLabel.text = "With tip \(tip)"
+        
+        displayGrandTotal.font = UIFont.boldSystemFont(ofSize: 40)
+        displayGrandTotal.text = "Total \(total)"
         
     }
 
