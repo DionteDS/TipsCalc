@@ -121,6 +121,12 @@ class TipsViewController: UIViewController {
         return view
     }()
     
+    let displayBillLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let displayTipLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -224,15 +230,8 @@ class TipsViewController: UIViewController {
         
         tenPercentButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        // 10% constraints
-//        tenPercentButton.topAnchor.constraint(equalTo: tipPercentageLabel.bottomAnchor, constant: 10).isActive = true
-//        tenPercentButton.leadingAnchor.constraint(equalTo: middleView.leadingAnchor, constant: 60).isActive = true
-//        tenPercentButton.trailingAnchor.constraint(equalTo: middleView.trailingAnchor, constant: -60).isActive = true
-//        tenPercentButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
-        // bottomView constraints
-        
         view.addSubview(bottomView)
+        bottomView.addSubview(displayBillLabel)
         bottomView.addSubview(displayTipLabel)
         bottomView.addSubview(displayGrandTotal)
         
@@ -242,8 +241,12 @@ class TipsViewController: UIViewController {
         bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         bottomView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 3).isActive = true
         
+        // displayBillLabel constraints
+        displayBillLabel.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 50).isActive = true
+        displayBillLabel.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor, constant: 0).isActive = true
+        
         // displayTipLabel constraints
-        displayTipLabel.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 80).isActive = true
+        displayTipLabel.topAnchor.constraint(equalTo: displayBillLabel.bottomAnchor, constant: 10).isActive = true
         displayTipLabel.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor, constant: 0).isActive = true
         
         // displayGrandTotal constraints
@@ -252,7 +255,6 @@ class TipsViewController: UIViewController {
     }
     
     // MARK: Percentage buttons functions
-    
     
     // 10% button
     @objc func tenPercentTapped() {
@@ -269,6 +271,7 @@ class TipsViewController: UIViewController {
             
             let formattedTip = String(format: "$%.02f", tenPercentAdded)
             let formattedTotal = String(format: "$%.02f", grandTotal)
+            let formattedBill = String(format: "$%.02f", amount)
             
             print("Grand total: \(String(format: "$%.02f", grandTotal))")
             
@@ -276,7 +279,7 @@ class TipsViewController: UIViewController {
             twentyPercentButton.isEnabled = false
             tenPercentButton.backgroundColor = .red
             
-            displayTotal(tip: formattedTip, total: formattedTotal)
+            displayTotal(tip: formattedTip, total: formattedTotal, bill: formattedBill)
             
             didTap = false
         } else {
@@ -304,12 +307,13 @@ class TipsViewController: UIViewController {
             
             let formattedTip = String(format: "$%.02f", fifthteenPercentAdded)
             let formattedTotal = String(format: "$%.02f", grandTotal)
+            let formattedBill = String(format: "$%.02f", amount)
             
             print("Grand total: \(String(format: "$%.02f", grandTotal))")
             
             fifthteenPercentButton.backgroundColor = .red
             
-            displayTotal(tip: formattedTip, total: formattedTotal)
+            displayTotal(tip: formattedTip, total: formattedTotal, bill: formattedBill)
             
             tenPercentButton.isEnabled = false
             twentyPercentButton.isEnabled = false
@@ -338,6 +342,7 @@ class TipsViewController: UIViewController {
             
             let formattedTip = String(format: "$%.02f", twentyPercentAdded)
             let formattedTotal = String(format: "$%.02f", grandTotal)
+            let formattedBill = String(format: "$%.02f", amount)
             
             print("Grand Total: \(String(format: "$%.02f", grandTotal))")
             
@@ -346,7 +351,7 @@ class TipsViewController: UIViewController {
             tenPercentButton.isEnabled = false
             fifthteenPercentButton.isEnabled = false
             
-            displayTotal(tip: formattedTip, total: formattedTotal)
+            displayTotal(tip: formattedTip, total: formattedTotal, bill: formattedBill)
             
             didTap = false
         } else {
@@ -400,10 +405,13 @@ class TipsViewController: UIViewController {
     
     // MARK: - Display the grand total
     
-    func displayTotal(tip: String, total: String) {
+    func displayTotal(tip: String, total: String, bill: String) {
         
         print("The tip: \(tip)")
         print("Total + tip: \(total)")
+        
+        displayBillLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        displayBillLabel.text = "Bill \(bill)"
         
         displayTipLabel.font = UIFont.boldSystemFont(ofSize: 40)
         displayTipLabel.text = "With tip \(tip)"
