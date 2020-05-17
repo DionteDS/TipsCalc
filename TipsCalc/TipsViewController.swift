@@ -177,7 +177,7 @@ class TipsViewController: UIViewController {
         topView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 3).isActive = true
         
         // tipCalculatorTitle constraints
-        tipCalaculatorTitle.topAnchor.constraint(equalTo: topView.topAnchor, constant: 70).isActive = true
+        tipCalaculatorTitle.topAnchor.constraint(equalTo: topView.topAnchor, constant: 40).isActive = true
         tipCalaculatorTitle.centerXAnchor.constraint(equalTo: topView.centerXAnchor, constant: 0).isActive = true
         
         
@@ -198,7 +198,7 @@ class TipsViewController: UIViewController {
         underline.heightAnchor.constraint(equalToConstant: 5).isActive = true
         
         // resetButton constraints
-        resetButton.topAnchor.constraint(equalTo: underline.bottomAnchor, constant: 15).isActive = true
+        resetButton.topAnchor.constraint(equalTo: underline.bottomAnchor, constant: 10).isActive = true
         resetButton.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 60).isActive = true
         resetButton.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -60).isActive = true
         resetButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
