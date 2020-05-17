@@ -12,6 +12,7 @@ class TipsViewController: UIViewController {
     
     // MARK: - Top View properties
     
+    // top view background
     let topView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -19,6 +20,7 @@ class TipsViewController: UIViewController {
         return view
     }()
     
+    // top view textField
     let tipTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +32,7 @@ class TipsViewController: UIViewController {
         return textField
     }()
     
+    // top view tip title label
     let tipCalaculatorTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +40,7 @@ class TipsViewController: UIViewController {
         return label
     }()
     
+    // top view total label
     let totalLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +48,7 @@ class TipsViewController: UIViewController {
         return label
     }()
     
+    // top view underline
     let underline: UIView = {
         let underline = UIView()
         underline.translatesAutoresizingMaskIntoConstraints = false
@@ -51,6 +56,7 @@ class TipsViewController: UIViewController {
         return underline
     }()
     
+    // top view button
     let resetButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +72,7 @@ class TipsViewController: UIViewController {
     
     // MARK: - Middle view properties
     
+    // middle view background
     let middleView: UIView = {
         let middleView = UIView()
         middleView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +80,7 @@ class TipsViewController: UIViewController {
         return middleView
     }()
     
+    // middle view tip percentage label
     let tipPercentageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +88,7 @@ class TipsViewController: UIViewController {
         return label
     }()
     
+    // middle view 10% button
     let tenPercentButton: UIButton = {
         let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "10%", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
@@ -88,6 +97,7 @@ class TipsViewController: UIViewController {
         return button
     }()
     
+    // middle view 15% button
     let fifthteenPercentButton: UIButton = {
         let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "15%", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
@@ -96,6 +106,7 @@ class TipsViewController: UIViewController {
         return button
     }()
     
+    // middle view 20% button
     let twentyPercentButton: UIButton = {
         let button = UIButton()
         button.setAttributedTitle(NSAttributedString(string: "20%", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 25), NSAttributedString.Key.foregroundColor: UIColor.white]), for: .normal)
@@ -104,6 +115,7 @@ class TipsViewController: UIViewController {
         return button
     }()
     
+    // middle view stackView hold the 3 percent buttons
     let stacks: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -118,6 +130,7 @@ class TipsViewController: UIViewController {
     
     // MARK: - BottomView properties
     
+    // bottom view background
     let bottomView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -125,26 +138,31 @@ class TipsViewController: UIViewController {
         return view
     }()
     
+    // bottom view bill label
     let displayBillLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    // bottom view tip label
     let displayTipLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    // bottom view total label
     let displayGrandTotal: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    
+    // hold the amount type in the textField
     var amount: Double = 0
+    
+    // check if one of the three buttons were tapped
     var didTap: Bool = true
     
     // MARK: Setup Constraints
