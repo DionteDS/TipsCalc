@@ -58,6 +58,16 @@ class TipsViewController: UIViewController {
         return underline
     }()
     
+    let resetButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setAttributedTitle(NSAttributedString(string: "Reset", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor: UIColor.black]), for: .normal)
+        button.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.blue.cgColor
+        button.layer.cornerRadius = 30
+        return button
+    }()
     // ----------------------------------------------------------------------------------------------------------
     
     // MARK: - Middle view properties
@@ -165,6 +175,7 @@ class TipsViewController: UIViewController {
 //        topView.addSubview(digitsLabel)
         topView.addSubview(tipTextField)
         topView.addSubview(underline)
+        topView.addSubview(resetButton)
         
         // TopView constraints
         topView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
@@ -201,6 +212,11 @@ class TipsViewController: UIViewController {
         underline.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 80).isActive = true
         underline.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -80).isActive = true
         underline.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        
+        resetButton.topAnchor.constraint(equalTo: underline.bottomAnchor, constant: 15).isActive = true
+        resetButton.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 60).isActive = true
+        resetButton.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -60).isActive = true
+        resetButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         // middleView constraints
         
@@ -414,13 +430,21 @@ class TipsViewController: UIViewController {
         displayBillLabel.text = "Bill \(bill)"
         
         displayTipLabel.font = UIFont.boldSystemFont(ofSize: 40)
-        displayTipLabel.text = "With tip \(tip)"
+        displayTipLabel.text = "Tip \(tip)"
         
         displayGrandTotal.font = UIFont.boldSystemFont(ofSize: 40)
         displayGrandTotal.text = "Total \(total)"
         
     }
-
+    
+    // MARK: - Reset button
+    
+    // Reset everything
+    @objc func resetButtonTapped() {
+        
+        print("Reset Tapped")
+        
+    }
 
 }
 
